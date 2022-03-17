@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QmyYdBbCp96M3jdho1WS/ctdLPZ/DakOGkXrpiKPsWkC//AoM+oNMpAqfAvd0/8fvxOiRVCsQ/BGF8QNTATBsw==",
+  "dgSpecHash": "wMrggUXGtPBJAzfKHJSkSeCS+LtYt7kGuiABW0gfPI09T5c2aSGPBZUTfEFEMDONPGQTZaGiBixgcPa1W3Z6bA==",
   "success": true,
   "projectFilePath": "C:\\ImmuneSimulation\\Client\\Client.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\sonja\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512",
-    "C:\\Users\\sonja\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+    "C:\\Users\\sonja\\.nuget\\packages\\raylib-cs\\4.0.0.1\\raylib-cs.4.0.0.1.nupkg.sha512",
+    "C:\\Users\\sonja\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }
