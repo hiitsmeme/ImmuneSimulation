@@ -10,13 +10,19 @@ Random rnd = new Random();
 int screenWidth = 800;
 int screenHeight = 800;
 
+int framesCounter = 0;
+
 int updateFactor = 1;
 
-// create ball instances
+
+// create body instance
+Body body = new Body(screenWidth, screenHeight);
+
+// create Macrophae instances
 Macrophage macro1 = new Macrophage(screenWidth, screenHeight, updateFactor);
-Macrophage macro2 = new Macrophage(screenWidth, screenHeight, updateFactor);
-Macrophage macro3 = new Macrophage(screenWidth, screenHeight, updateFactor);
-Macrophage macro4 = new Macrophage(screenWidth, screenHeight, updateFactor);
+
+// create Bacteria instance
+Bacteria bac1 = new Bacteria(screenWidth, screenHeight, updateFactor, body);
 
 
 Raylib.InitWindow(screenWidth, screenHeight, "Immune Simulation");
@@ -26,21 +32,21 @@ Raylib.SetTargetFPS(30);
 // main game loop
 while (!Raylib.WindowShouldClose())
 {
-    // Update
-    // update ball position
+    // Update vars
+    framesCounter++;
     macro1.updatePosition();
-    macro2.updatePosition();
-    macro3.updatePosition();
-    macro4.updatePosition();
+    bac1.updatePosition();
+    bac1.deductHealth(framesCounter);
 
     // Draw
+    Console.WriteLine(body.health.ToString());
     Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
+        body.draw();
+        body.displayHealth();
 
+        bac1.draw();
         macro1.draw();
-        macro2.draw();
-        macro3.draw();
-        macro4.draw();
 
     Raylib.EndDrawing();
 }

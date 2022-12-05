@@ -59,9 +59,15 @@ namespace Client
             position.Y = posy;
         }
 
+        public Vector2 getPosition()
+        {
+            return position;
+        }
+
         public void draw()
         {
             Raylib.DrawCircleV(position, radius, Color.VIOLET);
         }
+
     }
 }
