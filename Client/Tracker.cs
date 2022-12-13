@@ -30,7 +30,8 @@ namespace Client
                 {
                     if (TrackingBacteria[i].getPosition() == TrackingMarcophages[j].getPosition())
                     {
-                        
+                        Tuple<Bacteria, Macrophage>[] val = {(TrackingBacteria[i], TrackingMarcophages[j])}; 
+                        overlapping.Concat(val).ToArray();
                     }
                 }
             }
