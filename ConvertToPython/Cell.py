@@ -2,17 +2,17 @@ import pyray as pr
 import random
 
 class Cell:
-    def __init__(self, screen_width: int, screen_height: int, color):
+    def __init__(self, screen_width: int, screen_height: int,  posx: int, posy: int, radius: int, color):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.color = color
 
-        self.radius = 5
+        self.radius = radius
 
-        self.posx = int(screen_width / 2 + 20)
-        self.posy = int(screen_height / 2+ 20)
+        self.posx = posx
+        self.posy = posy
         
-        self.position = {'X' : self.posx, 'Y' : self.posy}
+        self.position = (self.posx, self.posy)
 
     # ---------- methods ----------- #
     def getPosition(self) -> dict:
@@ -35,16 +35,8 @@ class Cell:
         elif self.posy - update_factor_y >= self.radius:
             self.posy -= update_factor_y
 
-        # update dictionary
-        self.position["X"] = self.posx
-        self.position["Y"] = self.posy
+        # update position
+        self.position = (self.posx, self.posy)
     
     def draw(self):
         pr.draw_circle(self.posx, self.posy, self.radius, self.color)
-
-
-    def equalPositions(self, other):
-        if isinstance(other, Cell):
-            return self.posx == other.posx and self.posy == other.posy
-        else:
-            raise TypeError
