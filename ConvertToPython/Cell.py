@@ -24,16 +24,25 @@ class Cell:
         random_num_y = random.randint(0,11)
 
         # update self.posx
-        if (self.posx + update_factor_x <= self.screen_width - self.radius and random_num_x <= 50):
-            self.posx += update_factor_x 
+        # if (self.posx + update_factor_x <= self.screen_width - self.radius and random_num_x <= 50):
+        #     self.posx += update_factor_x 
+        # elif self.posx - update_factor_x >= self.radius:
+        #     self.posx -= update_factor_x
+
+        if random_num_x <= 50:
+            if self.posx + update_factor_x <= self.screen_width - self.radius:
+                self.posx += update_factor_x 
         elif self.posx - update_factor_x >= self.radius:
-            self.posx -= update_factor_x
+            self.posy -= update_factor_y
 
         # update self.posy
-        if self.posy + update_factor_y <= self.screen_height - self.radius and random_num_y > 50:
-            self.posy += update_factor_y 
+        if random_num_y > 50:
+            if self.posy + update_factor_y <= self.screen_height - self.radius:
+                self.posy += update_factor_y 
         elif self.posy - update_factor_y >= self.radius:
-            self.posy -= update_factor_y
+                self.posy -= update_factor_y
+        # elif self.posy - update_factor_y >= self.radius:
+        #     self.posy -= update_factor_y
 
         # update position
         self.position = (self.posx, self.posy)

@@ -13,23 +13,21 @@ screen_height = 800
 # dictionary that contains all elements to be rendered
 
 # create new objects
-bac1 = Bacteria(screen_width, screen_height, int(screen_width / 2), int(screen_height / 2), 5)
-bac2 = Bacteria(screen_width, screen_height, int(screen_width / 2), int(screen_height / 2), 5)
-bac3 = Bacteria(screen_width, screen_height, int(screen_width / 2), int(screen_height / 2), 5)
-
-macro1 = Macrophage(screen_width, screen_height, int(screen_width / 2 + 20), int(screen_height / 2), 10)
-macro2 = Macrophage(screen_width, screen_height, int(screen_width / 2 + 20), int(screen_height / 2), 10)
 
 cells = {
-    "bacteria": [bac1, bac2, bac3],
-    "macrophages": [macro1, macro2]
+    "bacteria": [],
+    "macrophages": [],
+    "cytokines": []
 }
-
-# create tracker instance
-my_tracker = Tracker(cells)
 
 # create Creator instance
 my_creator = Creator(cells, screen_width, screen_height)
+
+# create tracker instance
+my_tracker = Tracker(cells, screen_width, screen_height, my_creator)
+
+# keep track of frame number
+frame_counter = 0
 
 # ------------------------------------ #
 
@@ -41,9 +39,16 @@ pr.set_target_fps(60)
 
 # game loop
 while not pr.window_should_close():
+    # update frame counter
+    frame_counter += 1
 
-    # ------------- create cells -----------------#
-    my_creator.createBacteria((int(screen_width / 2), int(screen_height / 2)), 5)
+    # ------------- create cells ----------------- #
+    my_creator.createBacteria((int(screen_width / 2), int(screen_height / 2)))
+    
+    # create macrophage every 30 frames
+    if not frame_counter % 50:
+        my_creator.createMacrophage()
+    # -------------------------------------------- #
 
 
     # -------------- draw cells --------------- #
@@ -60,22 +65,45 @@ while not pr.window_should_close():
 
     pr.end_drawing()
 
+    # draw all cytokines
+    for cyto in cells["cytokines"]:
+        cyto.draw()
     # ----------------------------------------- #
 
     # ----------- update positions ------------ #
+    # update bacteria
     for bac in cells["bacteria"]:
         update_factor_x = random.randint(-5,5)
         update_factor_y = random.randint(-5,5)
         bac.updatePosition(update_factor_x, update_factor_y)
 
+    # update macrophages
     for macro in cells["macrophages"]:
         update_factor_x = random.randint(-5,5)
         update_factor_y = random.randint(-5,5)
+
+        # check for cytokines
+        # if cells["cytokines"]:
+        #     for cyto in cells["cytokines"]:
+        #         if macro.encounterCytokine(cyto):
+        #             macro.updatePosition(update_factor_x, update_factor_y, cyto)
+        # else:
         macro.updatePosition(update_factor_x, update_factor_y)
+    
+    # update cytokines
+    for cyto in cells["cytokines"]:
+        cyto.updatePosition()
     # ----------------------------------------- #
 
-    # ------------ check for kills ----------#
+    # ------------ check for kills ---------- #
     my_tracker.killBacteria(cells["bacteria"], cells["macrophages"])
+
+    # check if any macrophages have killed too many bacteria
+    my_tracker.killMacrophages(cells["macrophages"])
+
+    # check if cytokines are at the border
+    my_tracker.killCytokines(cells["cytokines"])
+    # --------------------------------------- #
 
 pr.close_window()
 
